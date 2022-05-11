@@ -1,0 +1,26 @@
+<div id='main'>
+ {if="is_array($userlist)"}
+  <div class='listador'>
+   <div class="head">{$lang.head_menu_userlist}</div>
+   <div class="body">
+    <ul class='userlist'>
+     {loop="$userlist"}
+      <li>
+       <div class='data'>
+        <span class='lasttime' title='Última vez conectado'>{function="date($config.site_timemode, $value.ultimafecha)"}</span>
+        <span class='messages'>{$value.mensajes} {if="$value.mensajes == 1"}{$lang.forum_message}{else}{$lang.forum_messages}{/if}</span>
+       </div>
+       <span class='name'>
+        <a href='{function="url('profile', $value.id);"}' class='user' title='{$value.rango}'>
+         <img class='avatar' src='{$value.avatar}' />
+         <b>{$value.nick}</b>
+        </a>
+        <span class='gray' title='nombre'>{$value.nombre}</span></span>
+       </span>
+      </li>
+     {/loop}
+    </ul>
+   </div>
+  {/if}
+ </div>
+</div>

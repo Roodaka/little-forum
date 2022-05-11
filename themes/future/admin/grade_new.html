@@ -1,0 +1,37 @@
+<div class='head_dark'>{$lang.admin_section_grades} > {$lang.admin_grades_new}</div>
+<div class='body' style='padding:10px 9px 10px 12px'>
+ <form method='post' action='{function="url('admin_access', null, 'new')"}'>
+
+  <p>
+   <label class='label'>Nombre:</label>
+   <input class='small' type='text' name='name' value='' />
+  </p>
+  <p>
+   <label class='label'>Tipo:</label>
+   <select name='type'>
+    <option value='{function="Grades::TYPE_AUTO"}'>Autom&aacute;tico</option>
+    <option value='{function="Grades::TYPE_ASSIGN"}'>Asignable</option>
+   </select>
+  </p>
+  <p>
+   <label class='label'>Cantidad de posts necesarios:</label>
+   <input class='small' type='text' name='cant' value='' placeholder='De ser Asignable dejar en blanco' />
+  </p>
+  <p>
+   <label class='label'>Color RGB (sin #):</label>
+   <input class='small' type='text' name='color' value='' />
+  </p>
+  <p>
+   <label class='label'>Negrita:</label>
+   <input class='' type='checkbox' name='bold' />
+  </p>
+  <p>
+   <label class='label'>Imagen:</label>
+   <input class='small' type='text' name='icon' value='' />
+  </p>
+  <div class='hline'></div>
+  <p>
+   <input type='submit' name='enviar' value='{$lang.admin_send}' class='button green' />
+  </p>
+ </form>
+</div>

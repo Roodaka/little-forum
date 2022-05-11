@@ -1,0 +1,55 @@
+<div id='main' style='width: 40%; margin: 2px 5px;'>
+ <div class='listador'>
+  <div class='head'>
+   {$lang.forum_mod_confirm_title}
+  </div>
+  <div class='body' style='text-align: center;'>
+   {if="isset($topic)"}
+    {if="!isset($passed)"}
+     <form action='{function="url('mod_topic', $topic.id, $mod)"}' method='post'>
+      <span style='display:block;'>{$lang.forum_topic}: <a href='{function="url('topic', $topic.id)"}' title='{$topic.titulo}'>{$topic.titulo}</a></span>
+      {if="$mod === 'movetopic'"}
+       <label>{$lang.forum_forum}:</label>
+       <select name='target'>
+        {loop="$forums"}
+         {if="$value.foros != false"}
+          {loop="$value.foros"}
+           <option value='{$value.id}''>{$value.nombre}</option>
+            {if="is_array($value2.subs)"}
+             {loop="$value2.subs"}
+              <option value='{$value.id}''> - {$value.nombre}</option>
+             {/loop}
+            {/if}
+          {/loop}
+         {/if}
+        {/loop}
+       </select>
+      {else}
+       <span style='display:block;'>{$lang['forum_mod_topic_'.$mod]}</span>
+      {/if}
+      <input type='submit' class='button dark' name='send' value='{$lang.forum_button_accept}' />
+      <a class='button gray' href='{function="url('topic', $topic.id)"}' title='{$lang.forum_back}'>{$lang.forum_back}</a>
+     </form>
+    {else}
+     <span style='display:block;'>{$lang['forum_mod_success_topic_'.$mod]}</span>
+     {if="$mod === 'delete'"}
+      <a href='{function="url('forum', $topic.foro_id)"}' title='{$lang.forum_button_back}'>{$lang.forum_button_back}</a>
+     {else}
+      <a href='{function="url('topic', $topic.id)"}' title='{$lang.forum_button_back}'>{$lang.forum_button_back}</a>
+     {/if}
+    {/if}
+   {elseif="isset($answer)"}
+    {if="!isset($passed)"}
+     <form action='{function="url('mod_answer', $answer.id, $mod)"}' method='post'>
+      <span style='display:block;'>{$lang['forun_mod_answ_'.$mod]} <a href='{function="url('profile', $answer.user_id)"}' title='{$answer.nombre}'>{$answer.nick}</a> {$lang.forum_link_in} <a href='{function="url('topic', $tdata.id)"}' title='{$tdata.titulo}'>{$tdata.titulo}</a>?</span>
+      <input type='submit' class='button dark' name='send' value='{$lang.forum_button_accept}' />
+      <a class='button gray' href='{function="url('topic', $tdata.id)"}' title='{$lang.forum_back}'>{$lang.forum_back}</a>
+     </form>
+    {else}
+     <span style='display:block;'>{$lang['forum_mod_success_answ_'.$mod]}</span>
+     <a href='{function="url('topic', $tdata.id)"}' title='{$lang.forum_button_back}'>{$lang.forum_button_back}</a>
+    {/if}
+   {/if}
+  </div>
+ </div>
+</div>

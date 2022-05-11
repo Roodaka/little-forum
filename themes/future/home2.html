@@ -1,0 +1,62 @@
+<div id='main'>
+ <div class='listador'>
+  {loop="$foros"}
+   {if="Grades::is_level($value.nivel) === true && count($value.foros) >= 1"}
+    <div class='head_dark'>{$value.nombre}</div>
+    <div class='body'>
+     <ul class='foro'>
+      {loop="$value.foros"}
+       {if="Grades::is_level($value.nivel_ver) === true"}
+        <li class='normal'>
+         <div class='points'>
+          <p><b>{$value.temas}</b> {if="$value.temas == '1'"}{$lang.forum_topic}{else}{$lang.forum_topics}{/if}</p>
+          <p><b>{$value.respuestas}</b> {if="$value.respuestas == '1'"}{$lang.forum_answer}{else}{$lang.forum_answers}{/if}</p>
+         </div>
+         <div class='data'>
+          <a href='{function="url('forum', $value.id)"}' title='{$value.descripcion}'>
+           <h4>{$value.nombre}</h4>
+          </a>
+          <span style='display: block;'>{function="resizetext($value.descripcion, 150)"}</span>
+          {if="is_array($value2.subs) && $value2.subs != false"}
+           <div class='subforos'>
+            {loop="$value2.subs"}
+             <span>
+              <a href='{function="url('forum', $value.id)"}' title='{$value.descripcion}'>{$value.nombre}</a>
+             </span>
+            {/loop}
+          </div>
+          {/if}
+          {if="isset($value2['mods']['list']) && is_array($value2.mods)"}
+           <div class="subforos">
+            {if="$value2.mods.cant == 1"}{$lang.forum_moderator}{else}{$lang.forum_moderators}{/if}:
+            {loop="$value2.mods.list"}
+             <span>
+              <a class='user' href='{function="url('profile', $value.id)"}' title='{$value.rango}'>{function="bbcsimple($value.nick, $value.color, $value.bold)"}</a>
+             </span>
+            {/loop}
+           </div>
+          {/if}
+         </div>
+        </li>
+       {/if}
+      {/loop}
+     </ul>
+    </div>
+   {/if}
+  {/loop}
+ </div>
+</div>
+<div class='clear'></div>
+{if="$online_users !== false && Grades::is_access(Grades::USER_SEE_ONLINELIST) === true"}
+ <div class='onlinelist'>
+  <div class='head'>{$lang.forum_online_users_title}</div>
+  <div class='body'>
+   <span>{$lang.forum_online_users_1} {$var = $config.user_connected_range / 60} {$lang.forum_online_users_2}</span>
+   <ul>
+    {loop="$online_users.list"}
+     <a class='user' href='{function="url('profile', $value.id)"}' title='{$value.rango}'>{function="bbcsimple($value.nick, $value.color, $value.bold)"}</a>
+    {/loop}
+   </ul>
+  </div>
+ </div>
+{/if}

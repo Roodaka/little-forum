@@ -1,0 +1,157 @@
+<div id="main" style='margin: 2px 5px;'>
+ <script type="text/javascript" src="js/jquery.snippet.min.js"></script>
+ <link rel='stylesheet' type='text/css' href='js/jquery.snippet.min.css' />
+ <script type="text/javascript">
+  $('.snippet-container').css('max-width', '795px');
+  $('pre.bbc_code').snippet('php',
+  {
+   style: 'rand01',
+   transparent: true,
+   menu: false,
+   showNum: false
+  });
+ </script>
+ <div class='listador'>
+  <div class='source'>
+   <a href='{function="url('home')"}'>{$source.cat_nombre}</a> &gt; <a href='{function="url('forum', $source.foro_id)"}'>{$source.foro_nombre}</a> &gt; <a href='{function="url('topic', $tema.id)"}'>{if="$tema.prefijo == '1'"}[{$tema.p_nombre}]{/if} {$tema.titulo}</a>
+  </div>
+  <a class='button green floatR' href='{function="url('newtopic', $source.foro_id)"}'>{$lang.forum_make_topic}</a>
+  <table class='topic_message' cellspacing='0' cellpadding='0'>
+   <tbody>
+    <tr class='message_head'>
+     <td colspan="2">
+      <h4 class='title'>{if="$tema.prefijo == '1'"}[{$tema.p_nombre}]{/if} {$tema.titulo}</h4> <span class='date'>{$lang.topic_msg_by} @{$tema.nick} - {function="date($config.site_timemode, $tema.fechahora)"}</span>
+      {if="$mod === true"}
+       <div class='botonera' style='float: right;'>
+        <ul>
+         {if="$tema.fijado == 1"}
+          <li class='active'><a href='{function="url('mod_topic', $tema.id, 'unstick')"}'>Desfijar</a></li>
+         {else}
+          <li><a href='{function="url('mod_topic', $tema.id, 'stick')"}'>Fijar</a></li>
+        {/if}
+         {if="$tema.comentar == 1"}
+          <li class='active'><a href='{function="url('mod_topic', $tema.id, 'disablecomments')"}'>Bloquear</a></li>
+         {else}
+          <li><a href='{function="url('mod_topic', $tema.id, 'enablecomments')"}'>Desbloquear</a></li>
+         {/if}
+         <li><a href='{function="url('mod_topic', $tema.id, 'movetopic')"}'>Mover Tema</a></li>
+         {if="$tema.estado == 1"}<li><a href='{function="url('mod_topic', $tema.id, 'delete')"}'>Eliminar</a></li>{/if}
+        </ul>
+       </div>
+      {/if}
+     </td>
+    </tr>
+    <tr class='message_content'>
+     <td class='author'>
+      <p class='photo'><img class='avatar' src='{$tema.avatar}' /></p>
+      <p class='name'>
+       <a href='{function="url('profile', $tema.user_id)"}' title='{$tema.nick}'>{$tema.nombre}</a>
+      </p>
+      <p class='title'>{function="bbcsimple($tema.rango, $tema.color, $tema.bold)"}</p>
+      <p class='posts'><span>{$tema.mensajes} {$lang.forum_messages}</span></p>
+      {if="Grades::is_access(Grades::USER_SEE_IP)"}<p class='posts'><span>{function="long2ip($tema.ip)"}</span></p>{/if}
+     </td>
+     <td class='content'>
+      <div id='topic_{$tema.id}' class='inv_cnt'>{$tema.contenido}</div>
+      <div class='cnt'>{$tema.contenido_html}</div>
+      {if="$tema.firmas == 1 && $tema.firma_html != '' && $config.enable_sign == true"}
+       <div class='firma'>{$tema.firma_html}</div>
+      {/if}
+      {if="Grades::is_level(Grades::GRADE_COMMON)"}
+       <div class='opt'>
+        <a class='button black' href='{function="url('report', $tema.id, 'topic')"}'>Reportar</a>
+        <a id='button_topic_{$tema.id}' class='quote_button button gray' data-nick='{$tema.nick}' data-cnt='topic_{$tema.id}' href='#'>Citar</a>
+       </div>
+      {/if}
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  {if="isset($resp)"}
+   <!-- RESPUESTAS -->
+    {loop="$resp"}
+     <table id='answer_{$value.id}' class='topic_message{if="$value.estado == '0' || $value.estado == 2"} hidded{/if}' cellspacing='0' cellpadding='0'>
+      <tbody>
+       <tr class='message_head'>
+        <td colspan="2">
+         <h4 class='title '>#{$counter} {$lang.topic_answ_prefix} {if="$tema.prefijo == '1'"}[{$tema.p_nombre}]{/if} {$tema.titulo}</h4> <span class='date'>{$lang.topic_msg_by} @{$value.nick} - {function="date($config.site_timemode, $value.fechahora)"}</span>
+         {if="$mod === true"}
+          <div class='botonera' style='float: right;'>
+           <ul>
+            {if="$value.estado == '0'"}
+             <li><a href='{function="url('mod_answer', $value.id, 'approbe')"}'>Aprobar</a></li>
+            {elseif="$value.estado == '2'"}
+             <li><a href='{function="url('mod_answer', $value.id, 'show')"}'>Mostrar</a></li>
+            {else}
+             <li><a href='{function="url('mod_answer', $value.id, 'hide')"}'>Ocultar</a></li>
+            {/if}
+            <li><a href='{function="url('mod_answer', $value.id, 'delete')"}'>Eliminar</a></li>
+           </ul>
+          </div>
+         {/if}
+        </td>
+       </tr>
+       <tr class='message_content'>
+        <td class='author'>
+         <p class='photo'><img class='avatar' src='{$value.avatar}' /></p>
+         <p class='name'><a href='{function="url('profile', $value.user_id)"}' title='{$value.nick}'>{$value.nombre}</a></p>
+         <p class='title'>{function="bbcsimple($value.rango, $value.color, $value.bold)"}</p>
+         <p class='posts'><span>{$value.mensajes} {$lang.forum_messages}</span></p>
+         {if="Grades::is_access(Grades::USER_SEE_IP)"}<p class='posts'><span>{function="long2ip($value.ip)"}</span></p>{/if}
+        </td>
+        <td class='content'>
+         <div id='answ_{$value.id}' class='inv_cnt'>{$value.contenido}</div>
+         <div class='cnt'>{$value.contenido_html}</div>
+         {if="$tema.firmas == '1' && $value.firma_html != ''"}<div class='firma'>{$value.firma_html}</div>{/if}
+         {if="Grades::is_level(Grades::GRADE_COMMON)"}
+          <div class='opt'>
+           <a class='quotemsg button gray' href='{function="url('report', $value.id, 'topic')"}'>Reportar</a>
+           <a class='quote_button button gray' data-nick='{$value.nick}' data-cnt='answ_{$value.id}' href='#'>Citar</a>
+          </div>
+         {/if}
+        </td>
+       </tr>
+      </tbody>
+     </table>
+    {/loop}
+   <!-- /RESPUESTAS -->
+  {/if}
+ {if="$tema.comentar == '1'"}
+  {if="Grades::is_level(Grades::GRADE_COMMON)"}
+   <table class='topic_message' cellspacing='0' cellpadding='0'>
+    <tbody>
+     <tr class='message_head'>
+      <td colspan="2">
+       <h4 class='title '>{$lang.forum_make_answer}</h4>
+      </td>
+     </tr>
+     <tr class='message_content'>
+      <td class='author'>
+       <p class='photo'><img title='{$lang.forum_picture_of} {$data.nombre}' alt='{$lang.forum_picture_of} {$data.nombre}' src='{$data.avatar}'/></p>
+       <p class='name'><a href='{function="url('profile', $data.id)"}'>{$data.nombre}</a></p>
+      </td>
+      <td class='content'>
+       <div id='texteditor'>
+        <script type="text/javascript" src="js/jquery.markitup.min.js"></script>
+        <form method='post' action='{function="url('newanswer', $tema.id);"}'>
+         {include="others/toolbar"}
+         <textarea id='content' name='content' style='width: 781px; height: 250px;'></textarea>
+         <div class='respond_topic'>
+          <input type='submit' name='send' class='button green' value='{$lang.forum_button_send}' />
+         </div>
+        </form>
+       </div>
+      </td>
+     </tr>
+    </tbody>
+   </table>
+  {else}
+   <div class='topic_cannot center'><b>{$lang.error_unreg_comment}</b></div>
+  {/if}
+ {else}
+  <div class='topic_cannot center'><b>{$lang.error_cannotanswer}</b></div>
+ {/if}
+ </div>
+</div>
+<link rel="stylesheet" type="text/css" href="js/jquery.snippet.min.css" />
+<script type="text/javascript" src="js/jquery.snippet.min.js"></script>

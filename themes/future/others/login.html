@@ -1,0 +1,17 @@
+<div id='window_login' class='window'>
+ <form action='{function="url('login');"}' method='post'>
+  <p class='field'>
+   <label for='user'>{$lang.forum_user}:</label>
+   <input type='text' class='input' id='user' name='user' maxlength='20' />
+  </p>
+  <p class='field'>
+   <label for='pass'>{$lang.forum_password}:</label><a href='{function="url('lostpassword')"}' style='float: right; color: #484848; font-size: 13px; margin-top: 5px;'>{$lang.login_misspass}</a>
+   <input type='password' class='input' id='pass' name='pass' maxlength='20' />
+  </p>
+  <p class='final'>
+   <input class='check' id='setter' type='checkbox' name='setter' value='true' checked='checked' />
+   <label for='setter'>{$lang.login_remember}</label>
+   <input class='button green' type='submit' style='margin: 0px 0px; float: right;' id='ingresar' name='ingresar' value='{$lang.login_send}' />
+  </p>
+ </form>
+</div>

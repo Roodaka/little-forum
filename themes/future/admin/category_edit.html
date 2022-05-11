@@ -1,0 +1,32 @@
+<div class='head_dark'> {$lang.admin_section_forums} -&gt; {$lang.admin_section_edit_forum} </div>
+<div class='body' style='padding:10px 9px 10px 12px'>
+ <form method='post' action='{function="url('admin_forums', $cat_data.id, 'edit_category')"}'>
+  <div class='hline'><span>Datos</span></div>
+  <p>
+   <label class='label'>Nombre:</label>
+   <input class='small' type='text' name='name' value='{$cat_data.nombre}' />
+  </p>
+  <p>
+   <label class='label' for='category'>Poner por debajo de:</label>
+   <select id='category' name='category'>
+    {loop="$categories"}
+     {if="$value.orden !== $cat_data.orden"}
+      <option value='{$value.orden}' {if="$value.orden == ($cat_data.orden - 1)"}selected{/if}>{$value.nombre}</option>
+     {/if}
+    {/loop}
+   </select>
+  </p>
+  <p>
+   <label class='label'>Nivel para ver la categoría:</label>
+   <select name='level'>
+    {loop="$grades"}
+     <option value='{$value.nivel_acceso}' {if="$value.nivel_acceso == $cat_data.nivel"}selected{/if}>{$value.nombre}</option>
+    {/loop}
+   </select>
+  </p>
+  <div class='hline'></div>
+  <p>
+   <input type='submit' name='enviar' value='{$lang.admin_send}' class='button green' />
+  </p>
+ </form>
+</div>

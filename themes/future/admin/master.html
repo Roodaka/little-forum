@@ -1,0 +1,173 @@
+<div class='head_dark'>{$lang.admin_cat_config} -&gt; {$lang.admin_section_master}</div>
+<div class='body' style='padding:10px 9px 10px 12px'>
+ <form method='post' action='{function="url('admin_master')"}'>
+
+  <!-- Preferencias Basicas de la web -->
+  <div class='hline'><span>{$lang.admin_gral_title}</span></div>
+  <p>
+   <label class='label'>{$lang.admin_gral_webtitle}</label>
+   <input class='large' type='text' name='site_title' value='{$config.site_title}'>
+  </p>
+  <p>
+   <label class='label'>{$lang.admin_gral_webdesc}</label>
+   <input class='large' type='text' name='site_desc' value='{$config.site_desc}'>
+  </p>
+  <p>
+   <label class='label'>{$lang.admin_gral_webtags}</label>
+   <input class='large' type='text' name='site_tags' value='{$config.site_tags}'>
+  </p>
+  <p>
+   <label class='label'>{$lang.admin_gral_webpath}</label>
+   <input class='small' type='text' name='site_patch' value='{$config.site_patch}'>
+  </p>
+  <p>
+   <label class='label'>{$lang.admin_gral_timemode} ({$lang.admin_gral_timemode_see} <a href='http://www.php.net/manual/es/function.date.php'>php.net</a>)</label>
+   <input class='small' name='site_timemode' value='{$config.site_timemode}' />
+  </p>
+  <p>
+   <label class='label'>{$lang.admin_gral_timezone}</label>
+   <select name='site_timezone'>
+    {loop="$site_timezones"}
+     <option value='{$value}' {if="$config.site_timezone === $value"}selected{/if}>{$value}</option>
+    {/loop}
+   </select>
+  </p>
+
+  <!-- MODO MANTENIMIENTO -->
+  <div class='hline'><span>{$lang.admin_maintenance_title}</span></div>
+  <p>
+   <label class='label'>{$lang.admin_maintenance_enable}</label>
+   <input type='checkbox' name='maint_enable' {if="$config.site_maintenance === true"}checked{/if}>
+  </p>
+  <div id='maint_div'>
+   <p>
+    <label class='label'>{$lang.admin_maintenance_msg_title}</label>
+    <input class='small' type='text' name='maint_title' value='{$config.maintenance_title}' />
+   </p>
+   <p>
+    <label class='label'>{$lang.admin_maintenance_msg_content}</label>
+    <input class='large' type='text' name='maint_comment' value='{$config.maintenance_comment}' />
+   </p>
+  </div>
+
+  <!-- CACHE!! -->
+  <div class='hline'><span>{$lang.admin_cache_title}</span></div>
+  <p>
+   <label class='label'>{$lang.admin_cache_mode}</label>
+   <select name='cache_mode'>
+    {loop="$cache_modes"}
+     <option value='{$value}' {if="$config.cache_mode === $value"}selected{/if}>{$lang['admin_cache_'.$value]}</option>
+    {/loop}
+   </select>
+  </p>
+  <div id='cache_div'>
+   <p>
+    <label class='label'>{$lang.admin_cache_life}</label>
+    <input class='small' type='text' name='cache_life' value='{$config.cache_life}'>
+   </p>
+   <p>
+    <label class='label'>{$lang.admin_cache_size}</label>
+    <input class='small' type='text' name='cache_size' value='{function="roundsize($cache_size, 2)"}' disabled />
+   </p>
+   <p>
+    <label class='label'>{$lang.admin_cache_clear}</label>
+    <input class='danger' type='checkbox' name='clear_cache' />
+   </p>
+  </div>
+
+  <!-- COOKIES -->
+  <div class='hline'><span>{$lang.admin_cookies_title}</span></div>
+  <p>
+   <label class='label'>{$lang.admin_cookies_enable}</label>
+   <input type='checkbox' name='cookies' {if="$config.enable_cookies == true"}checked{/if}/>
+  </p>
+  <div id='cookies_div' >
+   <p>
+    <label class='label'>{$lang.admin_cookies_life}</label>
+    <input class='small' type='text' name='cookies_life' value='{$config.cookie_life}' />
+   </p>
+   <p>
+    <label class='label'>{$lang.admin_cookies_name}</label>
+    <input class='small' type='text' name='cookies_name' value='{$config.cookie_name}' />
+   </p>
+   <p>
+    <label class='label'>{$lang.admin_cookies_path}</label>
+    <input class='small' type='text' name='cookies_path' value='{$config.cookie_path}' />
+   </p>
+  </div>
+
+  <!-- MAILS -->
+  <div class='hline'><span>{$lang.admin_mail_title}</span></div>
+  <p>
+   <label class='label'>{$lang.admin_mail_mode}</label>
+   <select name='mail_mode' >
+    {loop="$sendtypes"}
+     <option value='{$value}' {if="$config.mail_sendtype === $value"}selected{/if}>{$lang['admin_mail_mode_'.$value]}</option>
+    {/loop}
+   </select>
+  </p>
+  <p>
+   <label class='label'>{$lang.admin_mail_server}</label>
+   <input class='small' type='text' name='mail_server' value='{$config.mail_smtp_server}'>
+  </p>
+  <p>
+   <label class='label'>{$lang.admin_mail_user}</label>
+   <input class='small' type='text' name='mail_user' value='{$config.mail_user}'>
+  </p>
+  <p>
+   <label class='label'>{$lang.admin_mail_pass}</label>
+   <input class='small' type='password' name='mail_pass' value='{$config.mail_smtp_password}'>
+  </p>
+  <p>
+   <label class='label'>{$lang.admin_mail_port}</label>
+   <input class='small' type='text' name='mail_port' value='{$config.mail_smtp_port}'>
+  </p>
+
+    <!-- SUBIDA DE ARCHIVOS -->
+  <div class='hline'><span>{$lang.admin_uploader_title}</span></div>
+  <p>
+   <label class='label'>{$lang.admin_uploader_mode}</label>
+   <select name='uploader_mode'>
+    {loop="$uploadtypes"}
+     <option value='{$value}' {if="$config.uploader_avatar_mode === $value"}selected{/if}>{$lang['admin_uploader_mode_'.$value]}</option>
+    {/loop}
+   </select>
+  </p>
+  <p>
+   <label class='label'>{$lang.admin_uploader_default}</label>
+   <input class='small' type='text' name='uploader_default' value='{$config.uploader_avatar_default}' />
+  </p>
+  <p>
+   <label class='label'>{$lang.admin_uploader_max_height}</label>
+   <input class='small' type='text' name='uploader_height' value='{$config.uploader_max_height}' />
+  </p>
+  <p>
+   <label class='label'>{$lang.admin_uploader_max_width}</label>
+   <input class='small' type='text' name='uploader_width' value='{$config.uploader_max_width}' />
+  </p>
+  <p>
+   <label class='label'>{$lang.admin_uploader_max_size}</label>
+   <input class='small' type='text' name='uploader_size' value='{$config.uploader_max_size}' />
+  </p>
+  <div class='multicheck'>
+   <label class='label'>{$lang.admin_uploader_filetypes}</label>
+   <ul>
+    {loop="$filetypes"}
+     <li>
+      <input type='checkbox' name='uploader_types_{$value}' value='{$value}' {if="in_array($value, $selectedtypes)"}checked{/if} />
+      <span>.{$value}</span>
+     </li>
+    {/loop}
+   </ul>
+  </div>
+
+  <div class='hline'></div>
+  <p>
+   <input type='submit' name='enviar' value='{$lang.admin_send}' class='button green' />
+  </p>
+ </form>
+</div>
+<script type='text/javascript'>
+
+
+</script>

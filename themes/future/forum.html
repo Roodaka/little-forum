@@ -1,0 +1,125 @@
+<div id='main'>
+ <div class='listador'>
+  <div class='topichead'>
+   {if="$foro.tipo == Foros::FORUM_COMMON"}
+    <a href='{function="url('newtopic', $foro.id)"}' class='button green floatR'>{$lang.forum_make_topic}</a>
+   {/if}
+   <a href='{function="url('forum', $foro.id, 'mark')"}' class='button dark floatR'>{$lang.forum_mark_read}</a>
+   <h2 class='title'>{$foro.nombre}</h2>
+   <span class='desc'>{$foro.descripcion}</span>
+  </div>
+  {if="$subforos !== false"}
+   <div class="head">
+    <span>{$lang.forum_subforums}</span>
+   </div>
+   <div class="body">
+    <ul class='foro'>
+     {loop="$subforos"}
+      {if="Grades::is_level($value.nivel_ver) === true"}
+       <li {if="$value.tipo == Foros::FORUM_REDIR"}class='redir'{elseif="$value.tipo == Foros::FORUM_LOCKED"}class='locked'{elseif="$value.visto !== null && ($value.visto < $value.resp_fechahora)"}class='unread'{else}class='normal'{/if}>
+        <div class='points'>
+         <p><b>{$value.temas}</b> {if="$value.temas == '1'"}{$lang.forum_topic}{else}{$lang.forum_topics}{/if} - <b>{$value.respuestas}</b> {if="$value.respuestas == '1'"}{$lang.forum_answer}{else}{$lang.forum_answers}{/if}</p>
+         {if="$value.titulo !== null"}
+          <p>Última respuesta por: <a class='user' href='{function="url('profile', $value.user_id)"}' title='{$value.rango}'>{function="bbcsimple($value.nick, $value.color, $value.bold)"}</a></p>
+          <p>En <a href='{function="url('topic', $value.tema_id)"}'>{$value.titulo}</a></p>
+         {/if}
+        </div>
+        <div class='data'>
+         <a href='{function="url('forum', $value.id)"}' title='{$value.descripcion}'>
+          <h4>{$value.nombre}</h4>
+         </a>
+         <span style='display: block;'>{function="resizetext($value.descripcion, 150)"}</span>
+         {if="isset($value2['mods']['list']) && is_array($value2.mods)"}
+          <div class="subforos">
+           {if="$value2.mods.cant == 1"}{$lang.forum_moderator}{else}{$lang.forum_moderators}{/if}:
+           {loop="$value2.mods.list"}
+            <span>
+             <a class='user' href='{function="url('profile', $value.id)"}' title='{$value.rango}'>{function="bbcsimple($value.nick, $value.color, $value.bold)"}</a>
+            </span>
+           {/loop}
+          </div>
+         {/if}
+        </div>
+       </li>
+      {/if}
+     {/loop}
+    </ul>
+   </div>
+  {/if}
+  {if="$temas == false && $fijados == false"}
+   <div class='message'>
+    <span>{$lang.error_notopicshere}</span>
+   </div>
+  {else}
+   <table class='topiclist' cellspacing='0' cellpadding='0'>
+    <tbody>
+     <tr class='head'>
+      <td class='title'>{$lang.forum_topics} <div class='floatR'>{$lang.forum_showing} {$total_topics} {$lang.forum_link_of} {$foro.temas} {$lang.forum_topics}</div></td>
+     </tr>
+     {if="$fijados !== false"}
+      {loop="$fijados"}
+       <tr class='sticks'>
+        <td class='state' title='{$lang.topic_states_sticked}'></td>
+        <td class='name' style='background: url(themes/future/images/icons/{if="$value.prefijo == '1'"}{$value.icono}{else}page{/if}.png) 6px center no-repeat;'>
+         <a href='{function="url('topic', $value.tema_id)"}'>{if="$value.prefijo == '1'"}{function="bbcsimple('['.$value.nombre.']', $value.color, true)"}{/if} {$value.titulo}</a>
+         <span class='author'>{$lang.topic_maked_by} <a href='{function="url('profile', $value.user_id);"}' class='user' title='{$value.rango}'><b>{$value.nick}</b></a>.</span>
+        </td>
+        <td class='points'>
+         <p title='Fecha de publicaci&oacute;n: {function="date($config.site_timemode, $value.fechahora)"}'>
+          <span><b>{$value.visitas}</b> {if="$value.visitas == '1'"}{$lang.forum_visit}{else}{$lang.forum_visits}{/if}</span>
+          <span><b>{$value.respuestas}</b> {if="$value.respuestas == '1'"}{$lang.forum_answer}{else}{$lang.forum_answers}{/if}</span>
+         </p>
+        </td>
+       </tr>
+      {/loop}
+      <tr class='inline_title'>
+       <td colspan='3'></td>
+      </tr>
+     {/if}
+     {if="$temas !== false"}
+      {loop="$temas"}
+       {if="$value.estado == Temas::TOPIC_STATUS_APPROBED"}
+        <tr class='{if="($value.fechahora < $foro.marktime && $value.ultima_respuesta < $foro.marktime) || $value.see == Temas::TOPIC_I_READED"}readed{elseif="$value.see == Temas::TOPIC_I_PARTICIPE"}coment{else}unread{/if}'>
+       {else}
+        <tr class='{if="$value.estado == Temas::TOPIC_STATUS_HIDDED"}blocked{elseif="$value.estado == Temas::TOPIC_STATUS_DISAPPROBED"}deleted{else}unread{/if} hidded'>
+       {/if}
+        <td class='state'></td>
+        <td class='name' style='background: url(themes/{$data.config_tema}/images/icons/{if="$value.prefijo == '1'"}{$value.icono}{else}page{/if}.png) 6px center no-repeat;'>
+         {if="(int) $value.estado !== Temas::TOPIC_STATUS_APPROBED"}
+          <span class='status'>
+           {if="$value.estado == Temas::TOPIC_STATUS_HIDDED"}{$lang.forum_hidded}
+           {elseif="$value.estado == Temas::TOPIC_STATUS_DISAPPROBED"}{$lang.forum_disapprobed}
+           {else}{$lang.forum_unapprobed}{/if}
+          </span>
+         {/if}
+         <a href='{function="url('topic', $value.tema_id)"}'>{if="$value.prefijo == 1"}{function="bbcsimple('['.$value.nombre.']', $value.color, true)"}{/if} {$value.titulo}</a>
+         <span class='author'>{$lang.topic_maked_by} <a href='{function="url('profile', $value.user_id);"}' class='user' title='{$value.rango}'><b>{$value.nick}</b></a>.</span>
+        </td>
+        <td class='points'>
+         <p title='{$lang.topic_datetime} {function="date($config.site_timemode, $value.fechahora)"}'>
+          <span><b>{$value.visitas}</b> {if="$value.visitas == '1'"}{$lang.forum_visit}{else}{$lang.forum_visits}{/if}</span>
+          <span><b>{$value.respuestas}</b> {if="$value.respuestas == '1'"}{$lang.forum_answer}{else}{$lang.forum_answers}{/if}</span>
+         </p>
+        </td>
+       </tr>
+      {/loop}
+     {/if}
+    </tbody>
+   </table>
+   {$lang.forum_pages}
+   <ul class='paginado'>
+    {if="$paginado.first !== 0"}<li><a title='{$lang.forum_first}' href='{function="url('forum', $foro.id, null, $paginado.first)"}'>&laquo;</a></li>{/if}
+    {if="$paginado.prev !== 0"}<li><a title='{$lang.forum_prev}' href='{function="url('forum', $foro.id, null, $paginado.prev)"}'>&lsaquo;</a></li>{/if}
+    {loop="$paginado.pages"}
+     {if="$paginado.self == $value"}<li><b title='{$lang.forum_page} {$value}'>{$value}</b></li>
+     {else}<li><a title='{$lang.forum_page} {$value}' href='{function="url('forum', $foro.id, null, $value)"}'>{$value}</a></li> {/if}
+    {/loop}
+    {if="$paginado.next !== 0"}<li><a title='{$lang.forum_next}' href='{function="url('forum', $foro.id, null, $paginado.next)"}'>&rsaquo;</a></li>{/if}
+    {if="$paginado.last !== 0"}<li><a title='{$lang.forum_last}' href='{function="url('forum', $foro.id, null, $paginado.last)"}'>&raquo;</a>{/if}
+   </ul>
+  {/if}
+  <div class='forumsign'>
+   {include="others/forum_indications"}
+  </div>
+ </div>
+</div>

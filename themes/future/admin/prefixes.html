@@ -1,0 +1,64 @@
+<!-- NIVELES DE ACCESO -->
+<div id='admin_access'>
+ <div class='head_line'>
+  <span>{$lang.admin_grades_assigns}</span>
+  <div class='floatR'><a class='button green' href='{function="url('admin_access', null, 'new');"}' style='margin-top: -24;'>Crear</a></div>
+ </div>
+ <table class='rangos' cellspacing='0' cellpadding='0'>
+  <tbody>
+   <tr class='head'>
+    <td class='level'>{$lang.admin_grades_level}</td>
+    <td class='name'>{$lang.admin_grades_name}</td>
+    <td class='actions' colspan='2'>{$lang.admin_grades_actions}</td>
+   </tr>
+   {loop="$grades_pro"}
+    <tr class='listed'>
+     <td class='level'><span>{$value.nivel_acceso}</span></td>
+     <td class='name'>
+      {if="!empty($value.icono)"}<img src='themes/future/images/{$value.icono}' />{/if}<a href='{function="url('admin_access', $value.id, 'edit');"}'>{function="bbcsimple($value.nombre, $value.color, (bool) $value.bold)"}</a></td>
+     </td>
+     <td class='actions'>
+      <a href='{function="url('admin_access', $value.id, 'edit');"}'>{$lang.admin_grades_modif}</a>
+     </td>
+     <td class='actions'>
+      {if="((int)$value.nivel_acceso !== Grades::GRADE_ADMIN) && ((int)$value.nivel_acceso !== Grades::GRADE_COMMON) && ((int)$value.nivel_acceso !== Grades::GRADE_VISITOR)"}<a href='{function="url('admin_access', $value.id, 'delete' );"}'>{$lang.admin_grades_remove}</a>{else}---{/if}
+     </td>
+    </tr>
+   {/loop}
+  </tbody>
+ </table>
+ <div class='head_line'>
+  <span>{$lang.admin_grades_commons}</span>
+ </div>
+ <table class='rangos' cellspacing='0' cellpadding='0'>
+  <tbody>
+   <tr class='head'>
+    <td class='level'>{$lang.admin_grades_level}</td>
+    <td class='name'>{$lang.admin_grades_name}</td>
+    <td class='actions' colspan='2'>{$lang.admin_grades_actions}</td>
+   </tr>
+   {if="$grades_com !== false"}
+    {loop="$grades_com"}
+     <tr class='listed'>
+      <td class='level'><span>{$value.nivel_acceso}</span></td>
+      <td class='name'>
+       {if="!empty($value.icono)"}<img src='themes/future/images/{$value.icono}' />{/if}<a href='{function="url('admin_access', $value.id, 'edit');"}'>{function="bbcsimple($value.nombre, $value.color, (bool) $value.bold)"}</a></td>
+      </td>
+      <td class='actions'>
+       <a href='{function="url('admin_access', $value.id, 'edit');"}'>{$lang.admin_grades_modif}</a>
+      </td>
+      <td class='actions'>
+       <a href='{function="url('admin_access', $value.id, 'delete' );"}'>{$lang.admin_grades_remove}</a>
+      </td>
+     </tr>
+    {/loop}
+   {else}
+    <tr class='msg'>
+     <td colspan='4'>
+      <span>{$lang.admin_grades_no_commons}</span>
+     </td>
+    </tr>
+   {/if}
+  </tbody>
+ </table>
+</div>

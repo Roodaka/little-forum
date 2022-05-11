@@ -1,0 +1,43 @@
+<div id='main' style='margin: 2px 5px 2px 5px;'>
+ <div class='listador'>
+  <div class='head_dark'>
+   <span>{$lang.forum_make_topic_on} {$forum.nombre}</span>
+  </div>
+  <div id='editor'>
+   <form method='post'>
+    <p class='title'>
+     <label class='label' for='prefijos'>{$lang.forum_title}</label>
+     <select class='prefix' name='prefijos'>
+      <option value='null' >{$lang.forum_nothing}</option>
+      {loop="types"}
+       <option value='{$value.id}' data-icon='{$value.icono}'style='color: #{$value.color}; font-weight:bold;'>[{$value.nombre}]</option>
+      {/loop}
+     </select>
+     <input name='titulo' class='title'>
+    <img class='iconito' src='themes/{$data.config_tema}/images/white.gif' style='width: 16px; height: 16px; '>
+    </p>
+    <div id='texteditor' style='padding: 0px'>
+     <script type="text/javascript" src="js/jquery.markitup.min.js"></script>
+     <script type="text/javascript" src="js/editor.js"></script>
+      {include="others/toolbar"}
+      <textarea id='content' name='content' style='margin: 0px 0px 0px 161px; width: 804px; height: 250px;'></textarea>
+     </div>
+    <p>
+     <label class='label'>{$lang.forum_options}</label>
+      <input name='fijar' type='checkbox' value='true'/>
+      <label class='label_check' for='fijar'>Fijar como importante</label>
+      <input name='nocomentar' type='checkbox' value='true'/>
+      <label class='label_check' for='nocomentar'>Bloquear comentarios</label>
+      <input name='nofirmas' type='checkbox' value='true'/>
+      <label class='label_check' for='nofirmas'>Bloquear Firmas</label>
+      <input name='noprefix' type='checkbox' value='true'/>
+      <label class='label_check' for='nosmiles'>No mostrar el prefijo</label>
+    </p>
+    <p class='center'>
+     <input class='button green' type='submit' name='enviar'/>
+     <a class='button dark' href='{function="url('home')"}' title='{$lang.forum_button_cancel}'>{$lang.forum_button_cancel}</a>
+    </p>
+   </form>
+  </div>
+ </div>
+</div>

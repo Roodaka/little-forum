@@ -1,0 +1,83 @@
+<div class='head_dark'> {$lang.admin_section_forums} -&gt; {$lang.admin_section_edit_forum} </div>
+<div class='body' style='padding:10px 9px 10px 12px'>
+ <form method='post' action='{function="url('admin_forums', $forum_data.id, 'edit_forum')"}'>
+  <div class='hline'><span>Datos</span></div>
+  <p>
+   <label class='label'>Nombre:</label>
+   <input class='small' type='text' name='name' value='{$forum_data.nombre}' />
+  </p>
+  <p>
+   <label class='label'>Descripci&oacute;n:</label>
+   <input class='large' type='text' name='description' value='{$forum_data.descripcion}'/>
+  </p>
+  <p>
+   <label class='label' for='father'>Foro Padre:</label>
+   <select id='father' name='father'>
+    <option value='0' selected>Ninguno</option>
+    {loop="$forums"}
+     {if="$value.foros != false"}
+      {loop="$value.foros"}
+       <option value='{$value.id}' {if="$value.id === $forum_data.padre_id"}selected{/if}>{$value.nombre}</option>
+        {if="is_array($value2.subs)"}
+         {loop="$value2.subs"}
+          <option value='{$value.id}' {if="$value.id === $forum_data.padre_id"}selected{/if}> - {$value.nombre}</option>
+         {/loop}
+        {/if}
+       {/loop}
+     {/if}
+    {/loop}
+   </select>
+  </p>
+  <p>
+   <label class='label' for='category'>Categor&iacute;a:</label>
+   <select id='category' name='category'>
+    {loop="$categories"}
+     <option value='{$value.id}' {if="$value.id == $forum_data.cat_id"}selected{/if}>{$value.nombre}</option>
+    {/loop}
+   </select>
+  </p>
+  <p>
+   <label class='label' for='type'>Tipo:</label>
+   <select id='type' name='type'>
+    {loop="$types"}
+     <option value='{$value.num}' {if="$value.num === $forum_data.tipo"}selected{/if}>{$value.key}</option>
+    {/loop}
+   </select>
+  </p>
+  <div class='hline'><span>Redirecci&oacute;n</span></div>
+  <p>
+   <label class='label'>URL:</label>
+   <input class='small' name='redir' value='{$forum_data.redireccion}' />
+  </p>
+  <p>
+   <label class='label'>Visitas:</label>
+   <input class='small' name='hits' value='{$forum_data.hits}' />
+  </p>
+  <div class='hline'><span>Permisos</span></div>
+  <p>
+   <label class='label'>Nivel para ver el foro:</label>
+   <select name='nivel_ver'>
+    {loop="$grades"}
+     <option value='{$value.nivel_acceso}' {if="$value.nivel_acceso == $forum_data.nivel_ver"}selected{/if}>{$value.nombre}</option>
+    {/loop}
+   </select>
+  </p>
+  <p>
+   <label class='label'>Nivel para crear temas aqu&iacute;:</label>
+   <select name='nivel_crear'>
+    {loop="$grades"}
+     <option value='{$value.nivel_acceso}' {if="$value.nivel_acceso == $forum_data.nivel_crear"}selected{/if}>{$value.nombre}</option>
+    {/loop}
+   </select>
+  </p>
+  <div class='hline'></div>
+  <p>
+   <label class='label'>Borrar foro:</label>
+   <input type='checkbox' class='small' name='delete' />
+  </p>
+  <div class='hline'></div>
+  <p>
+   <input type='submit' name='enviar' value='{$lang.admin_send}' class='button green' />
+  </p>
+ </form>
+</div>

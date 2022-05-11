@@ -1,0 +1,157 @@
+<div id='main'>
+ <div id='editor'>
+  <div class='head'>{$lang.profile_options_edit}</div>
+  {if="$edit == 'edit_data'"}
+   <!-- edicion de perfil normal -->
+   <form method='post' action='{function="url('profile', $target, 'edit_data')"}'>
+    <p>
+     <label class='label' for='nombre'>{$lang.profile_data_name}:</label>
+     <input type='text' value='{$profile.nombre}' name='nombre'>
+    </p>
+    <p>
+     <label class='label' >{$lang.profile_data_borndate}:</label>
+     <select name='birth_d'>
+      {loop="$dates.days"}
+       <option value='{$value}' {if="$value == $born_date.day"}selected{/if}>{$value}</option>
+      {/loop}
+     </select>
+     <select name='birth_m'>
+      {loop="$dates.months"}
+       <option value='{$value}' {if="$value == $born_date.month"}selected{/if}>{$lang['forum_month_'.$value]}</option>
+      {/loop}
+     </select>
+     <select name='birth_y'>
+      {loop="$dates.years"}
+       <option value='{$value}' {if="$value == $born_date.year"}selected{/if}>{$value}</option>
+      {/loop}
+     </select>
+    </p>
+    <p>
+     <label class='label' for='sex'>{$lang.profile_data_sex}:</label>
+     <select name='sex'>
+      <option value='0' {if="$profile.sexo == 0"}selected{/if}>{$lang.profile_data_female}</option>
+      <option value='1' {if="$profile.sexo == 1"}selected{/if}>{$lang.profile_data_male}</option>
+     </select>
+    </p>
+    <p>
+     <label class='label' for='ubi'>{$lang.profile_data_ubi}:</label>
+     <input type='text' value='{$profile.ubicacion}' id='ubi' name='ubi'>
+    </p>
+    <p>
+     <label class='label' for='bio'>{$lang.profile_data_bio}:</label>
+     <div>
+      <textarea id='bio' name='bio' style='width: 712px; max-width: 712px; height: 125px; max-height: 125px; margin: 0px;'>{$profile.biografia}</textarea>
+     </div>
+    </p>
+    <p>
+     <label class='label' for='web'>{$lang.profile_data_web}:</label>
+     <input type='text' value='{$profile.web}' id='web' name='web'>
+    </p>
+    <p>
+     <label class='label' for='hidemail'>Ocultar mail:</label>
+     <input type='checkbox' value='{$profile.web}' id='hidemail' name='hidemail'>
+    </p>
+    {if="$config.enable_sign == true"}
+     <p>
+      <label class='label' for='content'>{$lang.profile_sign}:</label>
+      <div>
+       <textarea id='content' name='firma' style='width: 712px; max-width: 712px; height: 125px; max-height: 125px; margin: 0px;'>{$profile.firma}</textarea>
+      </div>
+      {if="$config.sign_bbc == true"}<span>Puedes usar BBCodes.</span>{/if}
+     </p>
+    {/if}
+    <p class='center'>
+     <input class='button green' type='submit' name='send' value='{$lang.forum_button_send}'>
+    </p>
+   </form>
+
+  {elseif="$edit == 'edit_avatar'"}
+   <form method='post' action='{function="url('profile', $target, 'edit_avatar')"}' enctype='multipart/form-data'>
+    <div class='indications'>
+     <ul>
+      <li>Formatos permitidos: {function="implode(', ', json_decode($config.uploader_avatar_filetypes, true))"}</li>
+     </ul>
+    </div>
+    {if="isset($error)"}
+     <div class='error'>
+      {$lang['error_'.$error]}
+     </div>
+    {/if}
+    <p>
+     <label class='label'>Foto actual:</label>
+     <img src='{$profile.avatar}' />
+    </p>
+    <p>
+     {if="$config.uploader_avatar_mode == 'file'"}
+      <label class='label' for='upload'>{$lang.profile_update_avatar_upload}:</label>
+      <input name='upload' type='file'>
+     {elseif="$config.uploader_avatar_mode == 'url'"}
+      <label class='label' for='url'>{$lang.profile_update_avatar_remote}:</label>
+      <input name='url' type='text' />
+     {elseif="$config.uploader_avatar_mode == 'gravatar'"}
+      <label class='label' for='gravatar'>{$lang.profile_update_avatar_gravatar}:</label>
+      <img src='{$gravatar}' />
+      <a href='http://gravatar.com/' title='Gravatar'>Cambia tu Gravatar Aqu&iacute;.</a>
+     {/if}
+    </p>
+    <p class='center'>
+     <input class='button dark' type='submit' value='{$lang.forum_button_send}'>
+    </p>
+   </form>
+
+  {elseif="$edit == 'edit_mail'"}
+   <!-- edicion de mail -->
+   <form method='post' action='{function="url('profile', $target, 'edit_mail')"}'>
+    <p>
+     <label class='label' for='mail'>{$lang.profile_data_mail}:</label>
+     <input type='text' value='{$profile.mail}' name='mail'>
+    </p>
+    <p>
+     <input type='submit' value='{$lang.forum_button_send}'>
+    </p>
+   </form>
+
+  {elseif="$edit == 'edit_pass'"}
+   <!-- edicion de pass -->
+   <form method='post' action='{function="url('profile', $target, 'pass')"}'>
+    <p>
+     <label class='label' for='pass_a'>{$lang.profile_update_pass_pre}:</label>
+     <input type='password' value='' name='pass_a'>
+    </p>
+    <p>
+     <label class='label' for='pass_b'>{$lang.profile_update_pass_new}:</label>
+     <input type='password' value='' name='pass_b'>
+    </p>
+    <p>
+     <label class='label' for='pass_c'>{$lang.profile_update_pass_new2}:</label>
+     <input type='password' value='' name='pass_c'>
+    </p>
+    <p>
+     <input type='submit' name='send' class='button dark' value='{$lang.forum_button_send}'>
+    </p>
+   </form>
+  {elseif="$edit === 'ban'"}
+   <form method='post' action='{function="url('profile', $target, 'ban')"}'>
+    <p>
+     <label class='label' for='pass_a'>Raz&oacute;n de la sansi&oacute;n</label>
+     <div>
+      <textarea id='content' name='firma' style='width: 712px; max-width: 712px; height: 125px; max-height: 125px; margin: 0px;'></textarea>
+     </div>
+    </p>
+    <p>
+     <label class='label' for='time'>Duraci&oacute;n:</label>
+     <select id='time' name='time'>
+      <option value='3600'>1 hora</option>
+      <option value='43200'>12 horas</option>
+      <option value='86400'>1 día</option>
+      <option value='604800'>7 días</option>
+      <option value='13392000'>permanente</option>
+     </select>
+    </p>
+    <p>
+     <input type='submit' name='send' class='button dark' value='{$lang.forum_button_send}'>
+    </p>
+   </form>
+  {/if}
+ </div>
+</div>

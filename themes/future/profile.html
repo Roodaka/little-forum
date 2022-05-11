@@ -1,0 +1,61 @@
+<div id='main'>
+ <div class='profile'>
+  <div id='head'>
+   <div class='avatar'>
+    <img src='{$profile.avatar}' />
+   </div>
+   <div class='data'>
+    <p class='name'>
+     <b>{$lang.profile_web_title}{$profile.nombre} <span class='gray'>({$profile.nick})</span></b>
+    </p>
+    {if="$profile.ubicacion !== null"}<p class='ubic' title='{$lang.profile_data_lives}'><b>{$lang.profile_data_lives}:</b> {$profile.ubicacion}</p>{/if}
+    {if="$profile.biografia !== null"}<p class='bio' title='{$lang.profile_data_bio}'><b>{$lang.profile_data_bio}:</b> {$profile.biografia}</p>{/if}
+   </div>
+  </div>
+  <div class='information'>
+   <p>
+    <span class='label'>{$lang.profile_data_rectime}:</span>
+    <span class='data'>{function="date($config.site_timemode, $profile.fecharegistro);"}</span>
+   </p>
+   <p>
+    <span class='label'>{$lang.profile_data_lasttime}:</span>
+    <span class='data'>{function="date($config.site_timemode, $profile.ultimafecha);"}</span>
+   </p>
+   <p>
+    <span class='label'>{$lang.profile_stats_topics}:</span>
+    <span class='data'>{$profile.temas}</span>
+   </p>
+   <p>
+    <span class='label'>{$lang.profile_stats_coments}:</span>
+    <span class='data'>{$profile.comentarios}</span>
+   </p>
+   <p>
+    <span class='label'>{$lang.profile_data_sex}:</span>
+    <span class='data'>{if="$profile.sexo == 0"}{$lang.profile_data_female}{else}{$lang.profile_data_male}{/if}</span>
+   </p>
+   <p>
+    <span class='label'>{$lang.profile_data_borndate}:</span>
+    <span class='data'>{function="date('d/m/Y', $profile.fechanacimiento)"}</span>
+   </p>
+   {if="$profile.config_show_mail == 1"}
+    <p>
+     <span class='label'>{$lang.profile_data_mail}:</span>
+     <span class='data'>{$profile.mail}</span>
+    </p>
+   {/if}
+  </div>
+  {if="$config.ads_enable == 1 && $config.ads_html_leftbar !== ''"}
+   <div class='ads'>{$config.ads_html_leftbar}</div>
+  {/if}
+  <div class='clear'></div>
+  {if="$profile.firma !== null && $config.enable_sign == true"}
+   <!-- Firma -->
+   <div class='listador'>
+    <div class="head">{$lang.profile_sign}</div>
+    <div class="body">
+     <div class='sign'>{$profile.firma_html}</div>
+    </div>
+   </div>
+  {/if}
+ </div>
+</div>

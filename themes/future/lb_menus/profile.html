@@ -1,0 +1,53 @@
+<div id='lb_profile_actions'>
+ <div class='left_head_gray'>{$lang.lb_title_profile}</div>
+ <div class='left_panel'>
+  <ul class='topics'>
+   {if="isset($data.id) && $data.id == $profile.id"}
+    <li style='background: url(themes/future/images/icons/application_edit.png) 6px center no-repeat;'>
+     <a href='{function="url('profile', $profile.id, 'edit_data')"}'>{$lang.profile_options_edit}</a>
+    </li>
+    {if="$config.uploader_avatar_mode !== 'none'"}
+     <li style='background: url(themes/future/images/icons/application_view_gallery.png) 6px center no-repeat;'>
+      <a href='{function="url('profile', $profile.id, 'edit_avatar')"}'>{$lang.profile_options_avatar}</a>
+     </li>
+    {/if}
+    <li style='background: url(themes/future/images/icons/application_home.png) 6px center no-repeat;'>
+     <a href='{function="url('profile', $profile.id, 'edit_mail')"}'>{$lang.profile_options_mail}</a>
+    </li>
+    <li style='background: url(themes/future/images/icons/application_key.png) 6px center no-repeat;'>
+     <a href='{function="url('profile', $profile.id, 'edit_pass')"}'>{$lang.profile_options_pass}</a>
+    </li>
+   {else}
+    <li style='background: url(themes/future/images/icons/envelope.png) 6px center no-repeat;'>
+     <a href='{function="url('messenger', $profile.id, 'new')"}'>{$lang.profile_options_msg}</a>
+    </li>
+    {if="Grades::is_access(Grades::USER_BAN)"}
+     <li style='background: url(themes/future/images/icons/application_error.png) 6px center no-repeat;'>
+      <a href='{function="url('profile', $profile.id, 'ban')"}'>{$lang.profile_options_ban}</a>
+     </li>
+    {/if}
+    {if="Grades::is_access(Grades::USER_DELETE_USERS)"}
+     <li style='background: url(themes/future/images/icons/application_delete.png) 6px center no-repeat;'>
+      <a href='{function="url('profile', $profile.id, 'delete')"}'>{$lang.profile_options_del}</a>
+     </li>
+    {/if}
+   {/if}
+  </ul>
+ </div>
+</div>
+
+<div id='lb_profile_stats'>
+ <div class='left_head_gray'>{$lang.profile_other}</div>
+ <div class='left_panel'>
+  <ul class='topics'>
+   <li style='background: url(themes/future/images/grades/medal_gold_1.png) 6px center no-repeat;'>
+    <span class='listed'>{$lang.profile_stats_rango}: {function="bbcsimple($profile.rango, $profile.color, $profile.bold);"}</span>
+   </li>
+   {if="$profile.web !== null"}
+    <li style='background: url(themes/future/images/icons/world.png) 6px center no-repeat;'>
+     <a href='http://{$profile.web}' title='http://{$profile.web}' target='_blank'>{$lang.profile_data_web}</a>
+    </li>
+   {/if}
+  </ul>
+ </div>
+</div>

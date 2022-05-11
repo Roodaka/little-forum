@@ -1,0 +1,33 @@
+<div id='leftbar'>
+ {if="isset($lb_search) && $lb_search == 'true'"}
+  <!-- Buscar -->
+  {include="lb_menus/search"}
+ {/if}
+
+ {if="isset($profile) && Grades::is_level(Grades::GRADE_COMMON) === true"}
+  <!-- Datos del perfil -->
+  {include="lb_menus/profile"}
+ {/if}
+
+ {if="isset($messages_list)"}
+  <!-- Mensajes -->
+ {/if}
+
+ {if="isset($lb_tree)"}
+  <!-- Arbol de Foros -->
+  {include="lb_menus/tree"}
+  {if="$config.ads_enable == 1 && $config.ads_html_leftbar !== ''"}
+   <!-- ADS -->
+   {include="lb_menus/ads"}
+  {/if}
+ {/if}
+
+ {if="isset($lb_topics)"}
+  <!-- Ultimos temas -->
+  {include="lb_menus/lasttopics"}
+  {if="$config.ads_enable == 1 && $config.ads_html_leftbar !== ''"}
+   <!-- ADS -->
+   {include="lb_menus/ads"}
+  {/if}
+ {/if}
+</div>

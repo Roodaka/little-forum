@@ -1,0 +1,30 @@
+<div id='window_register' class='window'>
+ <div class='title'>
+  <span><b>{$lang.register_create}</b> {$lang.register_free}</span>
+ </div>
+ <div class='content'>
+  <form action='{function="url('register')"}' method='post'>
+   {if="isset($error)"}<div class='error'>{$error}</div>{/if}
+   <p class='field'>
+    <label for='username'>{$lang.register_username}:</label>
+    <input class='input' id='username' name='username' />
+   </p>
+   <p class='field'>
+    <label for='pass1'>{$lang.register_pass}:</label>
+    <input class='input' id='pass1' name='pass1' type='password' />
+   </p>
+   <p class='field'>
+    <label for='pass2'>{$lang.register_pass_repeat}:</label>
+    <input class='input' id='pass2' name='pass2' type='password' />
+   </p>
+   <p class='field'>
+    <label for='mail1'>{$lang.register_mail}:</label>
+    <input class='input' id='mail1' name='mail1' />
+   </p>
+   <p class='final'>
+    <input class='button green floatR' name='send' type='submit' value='Registrarme'>
+    <span>{$lang.register_accept} <a href='TYC' title='{$lang.register_accept_tyc}'>{$lang.register_accept_tyc}</a>.</span>
+   </p>
+  </form>
+ </div>
+</div>

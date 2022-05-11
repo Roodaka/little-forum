@@ -1,0 +1,31 @@
+<div class='head_dark'>{$lang.admin_section_forums}</div>
+<div class='body' style='padding:10px 9px 10px 12px'>
+ <div class='forums_list'>
+  {loop="$forums"}
+   <a class='category' href='{function="url('admin_forums', $value.id, 'edit_category')"}'>{$value.nombre}</a>
+   <ul class='forums'>
+    {if="is_array($value.foros)"}
+     {loop="$value.foros"}
+      <li class='forum'>
+       <a class='forum' href='{function="url('forum', $value.id)"}'>{$value.nombre}</a>
+       <a class='option' href='{function="url('admin_forums', $value.id, 'edit_forum')"}'>{$lang.forum_edit}</a>
+      </li>
+       {if="is_array($value2.subs)"}
+         {loop="$value2.subs"}
+          <li class='subforum'>
+           <a href='{function="url('forum', $value.id)"}'>{$value.nombre}</a>
+           <a class='option' href='{function="url('admin_forums', $value.id, 'edit_forum')"}'>{$lang.forum_edit}</a>
+          </li>
+         {/loop}
+       {/if}
+     {/loop}
+    {/if}
+    <li>
+     <a href='{function="url('admin_forums', $value.id, 'new_forum')"}'>{$lang.admin_forums_add}</a>
+    </li>
+   </ul>
+  {/loop}
+ </div>
+ <a href='{function="url('admin_forums', null, 'new_category')"}' class='floatR button black'>{$lang.admin_section_mew_category}</a>
+ <div class='clear'></div>
+</div>

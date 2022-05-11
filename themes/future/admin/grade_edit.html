@@ -1,0 +1,51 @@
+<div class='head_dark'>{$lang.admin_section_grades} > {$lang.admin_grades_modif} {$g_data.nombre}</div>
+<div class='body' style='padding:10px 9px 10px 12px'>
+ <form method='post' action='{function="url('admin_access', $g_data.id, 'edit')"}'>
+  <p>
+   <label class='label'>Nombre:</label>
+   <input class='small' type='text' name='name' value='{$g_data.nombre}' />
+  </p>
+  <p>
+   <label class='label'>Cantidad de posts necesarios:</label>
+   <input class='small' type='text' name='cant' value='{$g_data.cantidad}' placeholder='De ser Asignable dejar en blanco' />
+  </p>
+  <p>
+   <label class='label'>Color RGB (sin #):</label>
+   <input class='small' type='text' name='color' value='{$g_data.color}' />
+  </p>
+  <p>
+   <label class='label'>Negrita:</label>
+   <input class='' type='checkbox' name='bold' {if="$g_data.bold == true"}checked{/if}/>
+  </p>
+  <p>
+   <label class='label'>Imagen:</label>
+   <input class='small' type='text' name='icon' value='{$g_data.icono}' />
+  </p>
+  <table class='actions' cellspacing='0' cellpadding='0'>
+   <tbody>
+    <tr class='head'>
+     <td colspan='2'><span>Permisos</span></td>
+    </tr>
+     {loop="$actions"}
+      <tr class='action'>
+       <td class='check'>
+        <input type='radio' id='{$value.key}_yes' name='{$value.key}' value='yes'{if="in_array($value.value, $g_data.permisos) == true"}checked{/if}>
+        <label for='{$value.key}_yes'>S&iacute;</label>
+        <input type='radio' id='{$value.key}_no' name='{$value.key}' value='no'{if="in_array($value.value, $g_data.permisos) == false"}checked{/if}>
+        <label for='{$value.key}_no'>No</label>
+       </td>
+       <td class='data'>
+        <span class='title'>{$lang['admin_actions_'.$value.key.'_title']}</span>
+        <span class='desc'>{$lang['admin_actions_'.$value.key.'_desc']}
+       </td>
+      </tr>
+     {/loop}
+    </tbody>
+  </table>
+
+  <div class='hline'></div>
+  <p>
+   <input type='submit' name='enviar' value='{$lang.admin_send}' class='button green' />
+  </p>
+ </form>
+</div>

@@ -1,0 +1,241 @@
+// Admin.less
+.admin
+ {
+  width: 100%;
+  .floatR { margin-top: 0px; float: right; }
+  .head_dark
+   {
+    color: #FFFFFF;
+    padding: 5px 0px 5px 11px;
+    border: 1px solid @dark_border;
+    border-bottom-color: darken(@dark_border, 6%);
+    text-shadow: 0 -1px 0 darken(@dark_border, 6%);
+    background: @dark;
+    .box-shadow-inset(0px, 1px, 0px, lighten(@dark, 8%));
+    .border-radius(3px, 3px, 0px, 0px);
+   }
+  .body
+   {
+    margin-bottom: 4px;
+    border: 1px solid #E6E6E6;
+    border-top: 0px;
+    .border-radius(0px, 0px, 3px, 3px);
+    p
+     {
+      .label
+       {
+        color: lighten(#646464, 5%);
+        font-weight: bold;
+        font-size: 12px;
+        width: 250px;
+        height: 24px;
+        display: inline-block;
+       }
+      select { width: 185; }
+      input
+       {
+        &.small { width: 185px; }
+        &.large { width: 440px; }
+       }
+     } // p
+    .hline
+     {
+      width: 100%;
+      border-bottom: 1px solid #B5B5B5;
+      span
+       {
+        font-weight: bold;
+        font-style: italic;
+        color: #646464;
+        font-size: 13px;
+       }
+     } // hline
+    .multicheck
+     {
+      .label
+       {
+        color: lighten(#646464, 5%);
+        font-weight: bold;
+        font-size: 12px;
+        width: 250px;
+        height: 24px;
+        display: inline-block;
+       }
+      ul
+       {
+        display: inline-block;
+        list-style: none;
+        margin: 0px;
+        padding: 0px;
+        li
+         {
+          display: inline-block;
+          list-style: none;
+          margin: 0px;
+          padding: 3px;
+         } // li
+       } // ul
+     } // multicheck
+    .forums_list
+     {
+      .category
+       {
+        color: lighten(#484848, 7%);
+        font-size: 14px;
+        font-weight: bold;
+        display: block;
+        padding: 4px;
+        text-decoration: none;
+       }
+      .forums
+       {
+        color: #646464;
+        background: lighten(#F1F1F1, 4%);
+        text-shadow: 0px 1px white;
+        border: 1px solid darken(#CCCCCC, 4%);
+        margin: 0px 0px 10px 0px;
+        width: 100%;
+        display: inline-block;
+        float: left;
+        .border-radius(2px, 2px, 2px, 2px);
+        li
+         {
+          color: @gris4;
+          text-decoration: none;
+          border-bottom: 1px solid #F1F1F1;
+          a, a:link, a:hover, a:active, a:visited { color: @gris4; }
+          .option
+           {
+            display:block;
+            float: right;
+            padding: 0px 10px 0px 0px;
+           }
+          &.forum { padding: 4px 0px 4px 8px; }
+          &.subforum { padding: 4px 0px 4px 16px; }
+          &:hover { background: #FFFFFF; }
+          &:last-child
+           {
+            border: 0px;
+            text-align: center;
+            padding: 4px 0px;
+            a, a:link, a:hover, a:active, a:visited { color: #FF8000;}
+           }
+         }
+       }
+     } // forums_list
+
+    .actions
+     {
+      width: 100%;
+      tr
+       {
+        &.head
+         {
+          td
+           {
+            padding: 2px;
+            font-weight: bold;
+            color: #646464;
+            font-size: 14px;
+            border-bottom: 1px solid #D9DADC;
+           }
+         }
+        &.action
+         {
+          td
+           {
+            border-bottom: 1px solid #D9DADC;
+            padding: 5px 0px 5px 5px;
+            font-size: 14px;
+            background: #F1F1F1;
+            text-shadow: 0 1px 0 #FFFFFF;
+            height: 45px;
+            span.title { display: block; font-weight: bold; color: #484848; }
+            span.desc { color: lighten(#484848, 20%); }
+            &.data { border-right: 1px solid #D9DADC; width: 85%; }
+            &.check
+             {
+              border-left: 1px solid #D9DADC;
+              width: 45px;
+              input { margin: 0px 0px 0px 6px; }
+              label { margin: 0px 6px 0px 0px; }
+             }
+           }
+         }
+        &:last-child { td { border-bottom: 0px; } }
+       }
+     }
+   } // Body
+
+  #admin_access
+   {
+    .head_line
+     {
+      margin: 7px 0px 3px 0px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #484848;
+     }
+    .rangos
+     {
+      .border-radius(3px, 3px, 3px, 3px);
+      border: 1px solid #B5B5B5;
+      width: 100%;
+      tr.head
+       {
+        background: #E6E6E6;
+        color: #555555;
+        text-shadow: 0px 1px #FFFFFF;
+        font-weight: bold;
+        font-size: 12px;
+        border: 1px solid #CCCCCC;
+        td
+         {
+          text-align: center;
+          display: inline-block;
+          padding: 6px 0px;
+          border-bottom: 1px solid #CCCCCC;
+          &.level { padding: 6px; width: 5%; border-right: 1px solid darken(#CCCCCC, 5%);  }
+          &.name { border-right: 1px solid darken(#CCCCCC, 5%); border-left: 1px solid lighten(#CCCCCC, 5%); width: 475px; }
+          &.actions { border-left: 1px solid lighten(#CCCCCC, 5%); }
+         }
+       }
+      tr.listed
+       {
+        td
+         {
+          border-bottom: 1px solid #D9DADC;
+          padding: 4px 0px 4px 0px;
+          font-size: 14px;
+          background: #F1F1F1;
+          &.level { text-align: center; font-size: 13px; color: #E37024; font-weight: bold; border-right: 1px solid D9DADC; }
+          &.name
+           {
+            border-right: 1px solid D9DADC;
+            img { margin: 0px 0px 0px 4px; max-width: 16px; max-height: 16px; }
+            span { margin: 0px 0px 0px 4px; }
+            a:hover { color: #484848; }
+           }
+          &.actions
+           {
+            text-align: center;
+            a, a:link, a:visited, a:active { color: #484848; text-decoration: underline; }
+            a:hover { color: #E37024; text-decoration: none; }
+           }
+         }
+        &:last-child { td { border-bottom: 0px; } }
+       }
+      tr.msg
+       {
+        td
+         {
+          color: #484848;
+          padding: 4px;
+          font-size: 14px;
+          background: #F1F1F1;
+          text-align: center;
+         }
+       }
+     }
+   }
+ } // Admin

@@ -1,0 +1,19 @@
+<div class="loginform">
+ <span class="loader" id="login_cargando" style="display: none; "></span>
+ <div id="loginerror"></div>
+ <form action="javascript:login_ajax()" method="post">
+  <label>Usuario:</label>
+   <input type="text" class="ilogin" id="nickname" name="nick" maxlength="20">
+  <label>Contraseña:</label>
+   <input type="password" class="ilogin" id="password" name="pass" maxlength="20">
+   <input type="checkbox" id="rem" name="rem" value="true" checked="checked">
+  <label for="rem">Recordarme</label>
+  <input type="submit" title="Entrar" value="Entrar" style="width:198px; margin-top:5px;" class="mBtn btnOk">
+ </form>
+ <div class="login_footer">
+  <a href="">¿Olvidaste tu contraseña?</a>
+  <a style="color:green;" onclick="open_login_box(); registro_load_form(); return false" href="">
+   <strong>Registrate Ahora!</strong>
+  </a>
+ </div>
+</div>

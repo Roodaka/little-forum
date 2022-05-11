@@ -1,0 +1,78 @@
+<html xmlns='http://www.w3.org/1999/xhtml'>
+ <head>
+  <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+  <meta name='title' content='{if="isset($web_title)"}{$web_title} | {/if}{$config.site_title}' />
+  <meta name='keywords' content='{if="isset($web_tags)"}{$web_tags}{else}{$config.site_tags}{/if}' />
+  <meta name='description' content='{$config.site_desc}' />
+  <meta name='robots' content='INDEX,FOLLOW'>
+  <meta name='content-language' content='{$langdata.meta}' />
+  <base href='{$config.site_patch}' />
+  <title>{if="isset($web_title)"}{$web_title} | {/if}{$config.site_title}</title>
+  <link rel='icon' href='/themes/future/images/favicon.png' type='image/x-icon'>
+  <link rel='shortcut icon' href='/themes/future/images/favicon.png'>
+  <link rel="stylesheet/less" type="text/css" href="theme.less" />
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+ </head>
+ <body class='mil'>
+  {if="(DEV === true || Grades::is_level(Grades::GRADE_ADMIN) == true) && is_dir('install') === true"}
+   <div id='install_error'>
+    <span>{$lang.head_error_install}</span>
+   </div>
+  {/if}
+  <div class='wrapper'>
+   <div id='header'>
+    <div class='top'>
+     {if="isset($head_info)"}
+      <div id='info' class='left'>
+       <span title='{function="date($config.site_timemode, $head_info.fechahora)"}'>{$head_info.contenido}</span>
+      </div>
+     {/if}
+     {if="Grades::is_level(Grades::GRADE_COMMON) == true"}
+      <div class='usermenu'>
+       <ul>
+        <li class='avatar'><img title='{$lang.forum_picture_of} {$data.nombre}' alt='{$lang.forum_picture_of} {$data.nombre}' src='{$data.avatar}'/></li>
+        <li class='data'>
+         <span>{if="$data.sexo == 0"}{$lang.head_usermenu_welcome_female}{else}{$lang.head_usermenu_welcome_male}{/if}, <a id='openmenu' href='{function="url('profile', $data.id)"}' title='{$lang.head_usermenu_myprofile}'>{$data.nombre}</a>!</span>
+         {if="$data.unreads > '0'"}
+          <span><a href='{function="url('messenger', null, 'unreads')"}' class='msg'>{$lang.head_usermenu_youhave} {$data.unreads} {$lang.head_usermenu_unreads}</a></span>
+         {else}
+          <span><a href='{function="url('messenger', null, 'send')"}' class='msg'>{$lang.head_usermenu_nounreads}</a></span>
+         {/if}
+         <span>
+          <a href='{function="url('profile', $data.id, 'edit_data')"}' title='{$lang.head_usermenu_preferences}'>{$lang.head_usermenu_preferences}</a> - <a href='{function="url('login', null, 'exit')"}' title='{$lang.head_usermenu_exit}'>{$lang.head_usermenu_exit}</a>
+         </span>
+        </li>
+       </ul>
+      </div>
+     {else}
+     {include="others/register"}
+     {include="others/login"}
+      <div class='anonmenu'>
+       <span class='anon'>
+        <a id='call_login' class='head_link' title='{$lang.head_usermenu_login}' href='{function="url('login')"}'>{$lang.head_usermenu_login}</a> {$lang.forum_link_or} <a id='call_register' class='button green' title='{$lang.head_usermenu_register}' href='{function="url('register')"}'>{$lang.head_usermenu_register}</a>
+       </span>
+      </div>
+     {/if}
+     <a class='title' href='index.php'>
+      <img src='themes/future/images/logo.png' alt='{$config.site_title}' />
+     </a>
+    </div>
+    {if="$config.site_maintenance == false"}
+     <div class='menu'>
+      <a class='btn' title='{$lang.head_menu_index}' href='{function="url('home')"}'>{$lang.head_menu_index}</a>
+      {if="Grades::is_level(Grades::GRADE_COLAB)"}
+       <a class='btn' title='{$lang.head_menu_admin}' href='{function="url('admin_panel')"}'>{$lang.head_menu_admin}</a>
+      {/if}
+      <a class='btn' title='{$lang.head_menu_lasttopics}' href='{function="url('topics')"}'>{$lang.head_menu_lasttopics}</a>
+      <a class='btn' title='{$lang.head_menu_userlist}' href='{function="url('userlist')"}'>{$lang.head_menu_userlist}</a>
+      {if="$config.enable_search == true"}
+       <div class='search' style='float: right;'>
+        <form method='post' action='{function="url('topics')"}'>
+         <input type='text' name='search' placeholder='{$lang.search_holder}' title='{$lang.forum_writeandenter}' />
+        </form>
+       </div>
+      {/if}
+     </div>
+    {/if}
+   </div>
+   <div id='container'>

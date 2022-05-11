@@ -1,0 +1,44 @@
+<div id='main' style='margin: 2px 156px;'>
+ <div class='listador'>
+  <div class='head_dark'>
+   <span><b>{$lang.register_create}</b> {$lang.register_free}</span>
+  </div>
+  <div class='form'>
+   <form action='{function="url('register')"}' method='post'>
+    {if="isset($error)"}<div class='error'>{$error}</div>{/if}
+    <p class='field'>
+     <label class='label' for='username'>{$lang.register_username}:</label>
+     <input class='input' id='username' name='username' />
+    </p>
+    <p class='field'>
+     <label class='label' for='realname'>{$lang.register_realname}:</label>
+     <input class='input' id='realname' name='realname' />
+    </p>
+    <p class='field'>
+     <label class='label' for='pass1'>{$lang.register_pass}:</label>
+     <input class='input' id='pass1' name='pass1' type='password' />
+    </p>
+    <p class='field'>
+     <label class='label' for='pass2'>{$lang.register_pass_repeat}:</label>
+     <input class='input' id='pass2' name='pass2' type='password' />
+    </p>
+    <p class='field'>
+     <label class='label' for='mail1'>{$lang.register_mail}:</label>
+     <input class='input' id='mail1' name='mail1' />
+    </p>
+    <p class='field'>
+     <label class='label' for='mail2'>{$lang.register_mail_repeat}:</label>
+     <input class='input' id='mail2' name='mail2' />
+    </p>
+    <div class='ender'>
+     <p>
+      <input class='send' name='send' type='submit' value='Registrarme'>
+     </p>
+     <p>
+      <span>{$lang.register_accept} <a href='TYC' title='{$lang.register_accept_tyc}'>{$lang.register_accept_tyc}</a>.</span>
+     </p>
+    </div>
+   </form>
+  </div>
+ </div>
+</div>

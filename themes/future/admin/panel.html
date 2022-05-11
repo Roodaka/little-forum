@@ -1,0 +1,106 @@
+<div class='head_dark'> {$lang.admin_cat_config} -&gt; {$lang.admin_section_panel} </div>
+<div class='body' style='padding:10px 9px 10px 12px'>
+ <form method='post' action='{function="url('admin_panel')"}'>
+
+  <!-- FIRMAS DE USUARIOS -->
+  <div class='hline'><span>{$lang.admin_signs_title}</span></div>
+  <p>
+   <label class='label'>{$lang.admin_signs_enable}</label>
+   <input type='checkbox' name='enable_sign' {if="$config.enable_sign == true"}checked />
+  </p>
+  <div>
+   {else}/>
+  </p>
+  <div class='hidded'>{/if}
+   <p>
+    <label class='label'>{$lang.admin_signs_bbc}</label>
+    <input type='checkbox' name='sign_bbc' {if="$config.sign_bbc==true"}checked{/if}>
+   </p>
+   <p>
+    <label class='label'>{$lang.admin_signs_images}</label>
+    <input type='checkbox' name='sign_images' {if="$config.sign_images==true"}checked{/if}>
+   </p>
+   <p>
+    <label class='label'>{$lang.admin_signs_maxchars}</label>
+    <input class='small' type='text' name='sign_maxchars' value='{$config.sign_maxchars}'>
+   </p>
+   <p>
+    <label class='label'>{$lang.admin_signs_smiles}</label>
+    <input type='checkbox' name='sign_smiles' {if="$config.sign_smiles==true"}checked{/if}>
+   </p>
+  </div>
+
+  <!-- ACCESOS -->
+  <div class='hline'><span>{$lang.admin_access_title}</span></div>
+  <p>
+   <label class='label'>{$lang.admin_access_register}</label>
+   <input type='checkbox' name='enable_register' {if="$config.enable_register == true"}checked{/if} />
+  </p>
+  <p>
+   <label class='label'>{$lang.admin_access_search}</label>
+   <input type='checkbox' name='enable_search' {if="$config.enable_search == true"}checked{/if} />
+  </p>
+  <p>
+   <label class='label'>{$lang.admin_access_session_life}</label>
+   <input class='small' type='text' name='user_session_life' value='{$config.user_session_life}' />
+  </p>
+  <p>
+   <label class='label'>{$lang.admin_access_users_connected_range}</label>
+   <input class='small' type='text' name='user_connected_range' value='{$config.user_connected_range}' />
+  </p>
+
+  <!-- CAPTCHA-->
+  <!-- <div class='hline'><span>{$lang.admin_captcha_title}</span></div>
+  <p>
+   <label class='label'>{$lang.admin_captcha_dir}</label>
+   <input class='small' type='text' name='captcha_dir' value='{$config.captcha_dir}'>
+  </p>
+  <p>
+   <label class='label'>{$lang.admin_captcha_answer}</label>
+   <input type='checkbox' name='captcha_answer' {if="$config.captcha_answer==true"}checked{/if}>
+  </p>
+  <p>
+   <label class='label'>{$lang.admin_captcha_login}</label>
+   <input type='checkbox' name='captcha_login' {if="$config.captcha_login==true"}checked{/if}>
+  </p>
+  <p>
+   <label class='label'>{$lang.admin_captcha_mp}</label>
+   <input type='checkbox' name='captcha_mp' {if="$config.captcha_mp==true"}checked{/if}>
+  </p>
+  <p>
+   <label class='label'>{$lang.admin_captcha_newtopic}</label>
+   <input type='checkbox' name='captcha_newtopic' {if="$config.captcha_newtopic==true"}checked{/if}>
+  </p>
+  <p>
+   <label class='label'>{$lang.admin_captcha_register}</label>
+   <input type='checkbox' name='captcha_register' {if="$config.captcha_register==true"}checked{/if}>
+  </p>-->
+
+  <!-- PAGINADO -->
+  <div class='hline'><span>{$lang.admin_paginate_title}</span></div>
+  <p>
+   <label class='label'>{$lang.admin_paginate_answers}</label>
+   <input class='small' type='text' name='pagelimit_answers' value='{$config.pagelimit_answers}' size='3'>
+  </p>
+  <p>
+   <label class='label'>{$lang.admin_paginate_mps}</label>
+   <input class='small' type='text' name='pagelimit_mps' value='{$config.pagelimit_mps}' size='3'>
+  </p>
+  <p>
+   <label class='label'>{$lang.admin_paginate_topics}</label>
+   <input class='small' type='text' name='pagelimit_topics' value='{$config.pagelimit_topics}' size='3'>
+  </p>
+  <p>
+   <label class='label'>{$lang.admin_paginate_users}</label>
+   <input class='small' type='text' name='pagelimit_users' value='{$config.pagelimit_users}' size='3'>
+  </p>
+  <p>
+   <label class='label'>{$lang.admin_paginate_nodes}</label>
+   <input class='small' type='text' name='pagelimit_nodes' value='{$config.pagelimit_nodes}' size='3'>
+  </p>
+  <div class='hline'></div>
+  <p>
+   <input type='submit' name='enviar' value='{$lang.admin_send}' class='button green' />
+  </p>
+ </form>
+</div>

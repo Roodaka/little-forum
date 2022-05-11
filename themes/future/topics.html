@@ -1,0 +1,44 @@
+<div id="main">
+ <div class="listador">
+  {if="$temas == false"}
+   <div class="message">
+    <span>{$lang.error_notopicshere}</span>
+   </div>
+  {else}
+   <table class='topiclist' cellspacing='0' cellpadding='0'>
+    <tbody>
+     <tr class='head'>
+      <td class='title'>{$lang.forum_topics}</td>
+     </tr>
+     {loop="$temas"}
+      <tr class='{if="$value.see == Temas::TOPIC_I_READED"}readed{elseif="$value.see == Temas::TOPIC_I_PARTICIPE"}coment{else}unread{/if}'><td class='state'></td>
+       <td class='name' style='background: url(themes/future/images/icons/{if="$value.prefijo == '1'"}{$value.icono}{else}page{/if}.png) 6px center no-repeat;'>
+        <a href='{function="url('topic', $value.tema_id)"}'>{if="$value.prefijo == '1'"}{function="bbcsimple('['.$value.nombre.']', $value.color, true)"}{/if} {$value.titulo}</a>
+        <span class='author'>{$lang.topic_maked_by} <a href='{function="url('profile', $value.id);"}' class='user' title='{$value.rango}'><b>{$value.nick}</b></a> {$lang.forum_link_in} <a href='{function="url('forum', $value.foro_id)"}'>{$value.foro}</a>.</span>
+       </td>
+       <td class='points'>
+        <p title='{$lang.topic_datetime} {function="date($config.site_timemode, $value.fechahora)"}'>
+         <span><b>{$value.visitas}</b> {if="$value.visitas == '1'"}{$lang.forum_visit}{else}{$lang.forum_visits}{/if}</span>
+         <span><b>{$value.respuestas}</b> {if="$value.respuestas == '1'"}{$lang.forum_answer}{else}{$lang.forum_answers}{/if}</span>
+        </p>
+       </td>
+      </tr>
+     {/loop}
+    </tbody>
+   </table>
+   <div class=''>
+    <ul class='paginado'>
+     {if="$paginado.first !== 0"}<li><a title='{$lang.forum_first}' href='{function="url('topics', null, null, $paginado.first)"}'>&laquo;</a></li>{/if}
+     {if="$paginado.prev !== 0"}<li><a title='{$lang.forum_prev}' href='{function="url('topics', null, null, $paginado.prev)"}'>&lsaquo;</a></li>{/if}
+     {loop="$paginado.pages"}
+      {if="$paginado.self == $value"}<li><b title='{$lang.forum_page} {$value}'>{$value}</b></li>
+      {else}<li><a title='{$lang.forum_page} {$value}' href='{function="url('topics', null, null, $value)"}'>{$value}</a></li> {/if}
+     {/loop}
+     {if="$paginado.next !== 0"}<li><a title='{$lang.forum_next}' href='{function="url('topics', null, null, $paginado.next)"}'>&rsaquo;</a></li>{/if}
+     {if="$paginado.last !== 0"}<li><a title='{$lang.forum_last}' href='{function="url('topics', null, null, $paginado.last)"}'>&raquo;</a>{/if}
+    </ul>
+   </div>
+   {include="others/forum_indications"}
+  {/if}
+ </div>
+</div>

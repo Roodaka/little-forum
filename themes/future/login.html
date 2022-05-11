@@ -1,0 +1,37 @@
+<div id='main' style='width:  272px; margin:2px 5px;'>
+ <div class='listador'>
+  <div class='head'>
+   <span>{$lang.login_title}</span>
+  </div>
+  {if="isset($error)"}
+   <div class='loginerror'>
+    <span><img src='/themes/future/images/icons/error.png' />{$lang['login_error_'.$error]}</span>
+   </div>
+  {elseif="isset($success)"}
+   <div class='loginsuccess'>
+    <span>{$lang.login_success}</span>
+   </div>
+  {/if}
+  <div class='loginform'>
+   <span class='loader' id='login_cargando' style='display: none;'></span>
+   <form action='' method='post'>
+    <p class='field'>
+     <!-- <label class='login_label'>{$lang.forum_user}:</label> -->
+     <input type='text' class='login_input' name='user' maxlength='20' placeholder='{$lang.forum_user}'>
+    </p>
+    <p class='field'>
+     <!-- <label class='login_label'>{$lang.forum_password}:</label> -->
+     <input type='password' class='login_input' name='pass' maxlength='20' placeholder='{$lang.forum_password}'>
+    </p>
+    <p class='field'>
+     <input class='login_check' type='checkbox' name='setter' value='true' checked='checked' />
+     <label class='label' for='setter'>{$lang.login_remember}</label>
+     <input class='button green' type='submit' style='margin: 0px 0px; padding: 5px 15px; float: right;' id='ingresar' name='ingresar' value='{$lang.login_send}' />
+    </p>
+   </form>
+  </div>
+  <div class='login_footer'>
+   <a href='{function="url('lostpassword')"}'>{$lang.login_misspass}</a>
+  </div>
+ </div>
+</div>

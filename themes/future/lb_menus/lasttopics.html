@@ -1,0 +1,16 @@
+<div id="lb_lasttopics">
+ <div class='left_head_gray'>{$lang.head_menu_lasttopics}</div>
+ <div class='left_panel'>
+  <ul class='topics'>
+   {if="$lb_topics == false"}
+    <li style='text-align: center; padding: 3px 0px;'>{$lang.error_notopics}</li>
+   {else}
+    {loop="$lb_topics"}
+     <li style='background: url(themes/{$data.config_tema}/images/icons/{if="$value.prefijo == '1'"}{$value.icono}{else}page{/if}.png) 6px center no-repeat;'>
+      <a href='{function="url('topic', $value.tema_id)"}' title='{$lang.topic_maked_by} {$value.nick} {$lang.forum_link_in} {$value.foro}'>{function="resizetext($value.titulo, 30)"}</a>
+     </li>
+    {/loop}
+   {/if}
+  </ul>
+ </div>
+</div>

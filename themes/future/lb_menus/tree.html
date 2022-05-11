@@ -1,0 +1,30 @@
+<div id="lb_tree">
+ <div class='left_head_gray'>{$lang.lb_title_tree}</div>
+ <div  class='left_panel'>
+  <ul class='cat_ul'>
+   {loop="$lb_tree"}
+    {if="$value.foros != false && Grades::is_level($value.nivel)"}
+     <span class='cat_span' data-id='cat_{$value.id}'>{$value.nombre}</span>
+     <ul class='cat_ul' data-id='cat_{$value.id}_cnt'>
+      {loop="$value.foros"}
+       {if="Grades::is_level($value.nivel_ver)"}
+        <li data-id='foro_{$value.id}'>
+         <a class='foro_span' href='{function="url('forum', $value.id)"}' title='{$value.descripcion}'>{$value.nombre}</a>
+         {if="is_array($value2.subs)"}
+          <ul class='foro_ul' data-id='foro_{$foro.id}_cnt'>
+           {loop="$value2.subs"}
+            <li data-id='foro_{$value.id}'>
+             <a class='subforo_span' href='{function="url('forum', $value.id)"}' title='{$value.descripcion}'>{$value.nombre}</a>
+            </li>
+           {/loop}
+         </ul>
+         {/if}
+        </li>
+       {/if}
+      {/loop}
+     </ul>
+    {/if}
+   {/loop}
+  </ul>
+ </div>
+</div>
